@@ -1,11 +1,25 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: molla <molla@student.42nice.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/14 08:46:35 by molla             #+#    #+#              #
+#    Updated: 2024/02/14 10:59:39 by molla            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 ifdef DEBUG
-CFLAGS	+= -fsanitize=adress -g3
+CFLAGS	+= -fsanitize=address -g3
 endif
 LIBFT	= Libft/
 MLX		= minilibx-linux/
-SRCS	= cub3d.c check_elems.c check_orientations.c check_colors.c
+SRCS	= cub3d.c ./Parsing/parsing.c ./Parsing/check_elems.c\
+		./Parsing/check_orientations.c ./Parsing/check_colors.c\
+		./Parsing/check_map_utils.c ./Parsing/check_map.c
 OBJS	= ${SRCS:.c=.o}
 NAME	= cub3D
 
