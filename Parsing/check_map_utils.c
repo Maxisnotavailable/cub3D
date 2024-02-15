@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:43:38 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 11:00:00 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:09:27 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	count_map_line(t_cub *cub, int fd)
 	cub->map.nb_line++;
 	while (map_line != NULL)
 	{
+		free(map_line);
 		cub->map.nb_line++;
 		map_line = get_next_line(fd);
 	}
@@ -45,31 +46,43 @@ int	count_map_line(t_cub *cub, int fd)
 	return (0);
 }
 
-int	create_map_arr(t_cub *cub, int fd, char *argv, int i)
+int	create(t_cub *cub, char **map_line, int fd)
+{
+	static int	i = 0;
+	static int	j = 0;
+
+	if (++i <= cub->elem.nb_line)
+	{
+		free(*map_line);
+		*map_line = get_next_line(fd);
+	}
+	else
+	{
+		if (*map_line[0] == '\n')
+			return (write(2, "Error\nMap is cut\n", 17), 1);
+		cub->map.arr[j++] = ft_strtrim(*map_line, "\n");
+		*map_line = get_next_line(fd);
+	}
+	return (0);
+}
+
+int	create_map_arr(t_cub *cub, int fd, char *argv)
 {
 	char	*map_line;
-	int		j;
 
-	j = 0;
 	if (count_map_line(cub, fd) == 1)
 		return (1);
-	cub->map.arr = malloc(sizeof (char *) * cub->map.nb_line + 1);
+	cub->map.arr = malloc(sizeof (char *) * (cub->map.nb_line + 1));
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		return (write(2, "Error\nMap does not exist\n", 25), 1);
 	map_line = get_next_line(fd);
 	while (map_line != NULL)
 	{
-		if (++i <= cub->elem.nb_line)
-			map_line = get_next_line(fd);
-		else
-		{
-			if (map_line[0] == '\n')
-				return (write(2, "Error\nMap is cut\n", 17), 1);
-			cub->map.arr[j++] = ft_strtrim(map_line, "\n");
-			map_line = get_next_line(fd);
-		}
+		if (create(cub, &map_line, fd) == 1)
+			return (1);
 	}
-	cub->map.arr[j] = NULL;
+	cub->map.arr[cub->map.nb_line] = NULL;
+	close(fd);
 	return (0);
 }

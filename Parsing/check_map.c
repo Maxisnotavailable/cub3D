@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:29:19 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 10:57:04 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:08:40 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_wall(t_cub *cub, char **arr)
 
 int	check_map(t_cub *cub, int fd, char *argv)
 {
-	if (create_map_arr(cub, fd, argv, 0) == 1)
+	if (create_map_arr(cub, fd, argv) == 1)
 		return (1);
 	if (check_map_char(cub, cub->map.arr, 0, -1) == 1)
 		return (1);

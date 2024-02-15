@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:50:22 by molla             #+#    #+#             */
-/*   Updated: 2024/02/14 08:47:34 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/15 16:46:19 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,11 @@ int	check_elems(char **argv, t_cub *cub)
 	while (map_line != NULL)
 	{
 		if (check(cub, map_line, fd, argv[1]) == 1)
+		{
+			free(map_line);
 			return (1);
+		}
+		free(map_line);
 		cub->elem.nb_line++;
 		all_elems(cub);
 		map_line = get_next_line(fd);

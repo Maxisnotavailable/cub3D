@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 10:56:55 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:24:02 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_win
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		height;
+	int		width;
 }	t_win;
 
 typedef struct s_time
@@ -81,6 +83,7 @@ typedef struct s_game
 	double	diry;
 	double	planx;
 	double	plany;
+	double	camerax;
 }	t_game;
 
 typedef struct s_cub
@@ -111,7 +114,7 @@ int	check_elems(char **argv, t_cub *cub);
 //+++++++  check_map_utils.c  ++++++//
 
 int	check_close(char **arr, t_line *line, int x, int y);
-int	create_map_arr(t_cub *cub, int fd, char *argv, int i);
+int	create_map_arr(t_cub *cub, int fd, char *argv);//, int i);
 
 //++++++++++  check_map.c  +++++++++//
 

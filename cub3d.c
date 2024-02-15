@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:16:16 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 11:01:13 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:24:25 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	init_game(t_cub *cub)
 	cub->game.plany = 0.66;
 	cub->game.posx = cub->map.posx_init;
 	cub->game.posx = cub->map.posy_init;
+	cub->win.width = 1280;
+	cub->win.height = 768;
+	cub->game.camerax = -1;
 	return ;
 }
 
@@ -40,7 +43,7 @@ int	main(int argc, char **argv)
 		return (1);
 	init_game(&cub);
 	cub.win.mlx_ptr = mlx_init();
-	cub.win.win_ptr = mlx_new_window(cub.win.mlx_ptr, 1538, 864, "CUB3D");
+	cub.win.win_ptr = mlx_new_window(cub.win.mlx_ptr, 1280, 768, "CUB3D");
 	mlx_hook(cub.win.win_ptr, 17, 0, close_window, NULL);
 	mlx_loop(cub.win.mlx_ptr);
 	return (0);
