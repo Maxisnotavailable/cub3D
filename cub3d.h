@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/14 11:00:16 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/15 10:56:55 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ typedef struct s_win
 	void	*mlx_ptr;
 	void	*win_ptr;
 }	t_win;
+
+typedef struct s_time
+{
+	double	time;
+	double	old_time;
+}	t_time;
 
 typedef struct s_img
 {
@@ -61,17 +67,29 @@ typedef struct s_map
 {
 	char	**arr;
 	char	player;
-	float	posx_init;
-	float	posy_init;
+	double	posx_init;
+	double	posy_init;
 	int		nb_line;
 	int		map;
 }	t_map;
+
+typedef struct s_game
+{
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planx;
+	double	plany;
+}	t_game;
 
 typedef struct s_cub
 {
 	t_win	win;
 	t_elems	elem;
 	t_map	map;
+	t_time	time;
+	t_game	game;
 }	t_cub;
 
 //+++++  check_orientations.c  +++++//

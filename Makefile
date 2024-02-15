@@ -6,12 +6,13 @@
 #    By: molla <molla@student.42nice.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 08:46:35 by molla             #+#    #+#              #
-#    Updated: 2024/02/14 10:59:39 by molla            ###   ########.fr        #
+#    Updated: 2024/02/15 10:06:37 by molla            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
+MFLAGS	= -lmlx -lft -lXext -lX11 -lm
 ifdef DEBUG
 CFLAGS	+= -fsanitize=address -g3
 endif
@@ -27,19 +28,21 @@ all		: ${NAME}
 
 ${NAME}	: ${OBJS}
 		${MAKE} -C ${LIBFT}
-		${CC} ${CFLAGS} -lXext -lX11 $^ ${LIBFT}libft.a -o $@
+		${MAKE} -C ${MLX}
+		${CC} ${CFLAGS} $^ -L${MLX} ${MFLAGS} -L${LIBFT} -o $@
 
 %.o		: %.c
-		${CC} ${CFLAGS} -Imlx -c $< -o $@
+		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
-		rm -f ${OBJS} ${OBJSBONUS}
+		rm -f ${OBJS}
 		${MAKE} clean -C ${LIBFT}
 		${MAKE} clean -C ${MLX}
 
 fclean	: clean
 		rm -f ${NAME}
 		${MAKE} fclean -C ${LIBFT}
+		${MAKE} fclean -C ${MLX}
 
 debug	:
 		${MAKE} DEBUG=1
