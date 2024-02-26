@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 17:24:02 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/23 14:07:51 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,31 @@
 # include <fcntl.h>
 # include <math.h>
 
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+# define RIGHT 65361
+# define LEFT 65363
+# define ESCAPE 65307
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img;
+
 typedef struct s_win
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	int		height;
 	int		width;
+	t_img	img;
 }	t_win;
-
-typedef struct s_time
-{
-	double	time;
-	double	old_time;
-}	t_time;
-
-typedef struct s_img
-{
-	char	*img_path;
-	void	*img_ptr;
-	int		img_width;
-	int		img_height;
-}	t_img;
 
 typedef struct s_elems
 {
@@ -79,11 +83,27 @@ typedef struct s_game
 {
 	double	posx;
 	double	posy;
+	int		mapx;
+	int		mapy;
 	double	dirx;
 	double	diry;
 	double	planx;
 	double	plany;
 	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	stepx;
+	double	stepy;
+	int		hit;
+	int		side;
+	double	perpwalldist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
 }	t_game;
 
 typedef struct s_cub
@@ -91,7 +111,6 @@ typedef struct s_cub
 	t_win	win;
 	t_elems	elem;
 	t_map	map;
-	t_time	time;
 	t_game	game;
 }	t_cub;
 
