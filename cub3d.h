@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/23 14:07:51 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/26 14:06:39 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,31 +116,48 @@ typedef struct s_cub
 
 //+++++  check_orientations.c  +++++//
 
-int	check_no_description(t_cub *cub, char *map_line, int i, int j);
-int	check_so_description(t_cub *cub, char *map_line, int i, int j);
-int	check_we_description(t_cub *cub, char *map_line, int i, int j);
-int	check_ea_description(t_cub *cub, char *map_line, int i, int j);
+int		check_no_description(t_cub *cub, char *map_line, int i, int j);
+int		check_so_description(t_cub *cub, char *map_line, int i, int j);
+int		check_we_description(t_cub *cub, char *map_line, int i, int j);
+int		check_ea_description(t_cub *cub, char *map_line, int i, int j);
 
 //+++++++  check_colors.c  +++++++++//
 
-int	check_f_description(t_cub *cub, char *map_line, int i);
-int	check_c_description(t_cub *cub, char *map_line, int i);
+int		check_f_description(t_cub *cub, char *map_line, int i);
+int		check_c_description(t_cub *cub, char *map_line, int i);
 
 //+++++++++  check_elems.c  ++++++++//
 
-int	check_elems(char **argv, t_cub *cub);
+int		check_elems(char **argv, t_cub *cub);
 
 //+++++++  check_map_utils.c  ++++++//
 
-int	check_close(char **arr, t_line *line, int x, int y);
-int	create_map_arr(t_cub *cub, int fd, char *argv);//, int i);
+int		check_close(char **arr, t_line *line, int x, int y);
+int		create_map_arr(t_cub *cub, int fd, char *argv);//, int i);
 
 //++++++++++  check_map.c  +++++++++//
 
-int	check_map(t_cub *cub, int fd, char *argv);
+int		check_map(t_cub *cub, int fd, char *argv);
 
 //+++++++++++  parsing.c  ++++++++++//
 
-int	parsing(int argc, char **argv, t_cub *cub);
+int		parsing(int argc, char **argv, t_cub *cub);
+
+//++++++++++++  init.c  ++++++++++++//
+
+void	init_game(t_cub *cub);
+void	init_player_orientation(t_cub *cub);
+void	calculs_init(t_cub *cub, int x);
+
+//+++++++++++  calculs.c  ++++++++++//
+
+void	calculate_deltas(t_cub *cub);
+void	calculate_step_and_sidedist(t_cub *cub);
+void	dda_algo(t_cub *cub);
+
+//+++++++++++  drawing.c  ++++++++++//
+
+void	establishement_draw(t_cub *cub);
+void	draw_verline(t_cub *cub, int x, int color);
 
 #endif
