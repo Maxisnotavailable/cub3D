@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/26 14:06:39 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:27:45 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_map
 
 typedef struct s_game
 {
+	int		f_color;
+	int		c_color;
 	double	posx;
 	double	posy;
 	int		mapx;
@@ -157,7 +159,16 @@ void	dda_algo(t_cub *cub);
 
 //+++++++++++  drawing.c  ++++++++++//
 
+int		convert_to_color(int color[3]);
 void	establishement_draw(t_cub *cub);
+void	my_pixel_put(t_cub *cub, int x, int y, int color);
 void	draw_verline(t_cub *cub, int x, int color);
+
+//++++++++++  movements.c  +++++++++//
+
+void	forward_mvt(t_cub *cub);
+void	backward_mvt(t_cub *cub);
+void	leftside_mvt(t_cub *cub);
+void	rightside_mvt(t_cub *cub);
 
 #endif

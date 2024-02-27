@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:57:07 by molla             #+#    #+#             */
-/*   Updated: 2024/02/26 14:01:05 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:27:04 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_game(t_cub *cub)
 	cub->game.raydirx = 0;
 	cub->game.raydiry = 0;
 	cub->game.hit = 0;
+	cub->game.f_color = convert_to_color(cub->elem.rgb_f);
+	cub->game.c_color = convert_to_color(cub->elem.rgb_c);
 	return ;
 }
 

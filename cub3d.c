@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:16:16 by molla             #+#    #+#             */
-/*   Updated: 2024/02/26 16:31:45 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:49:31 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	render(t_cub *cub)
 	int	x;
 	int	color;
 
+	mlx_do_key_autorepeaton(cub->win.mlx_ptr);
 	x = -1;
 	cub->win.img.mlx_img = mlx_new_image(cub->win.mlx_ptr,
 			cub->win.width, cub->win.height);
@@ -43,73 +44,54 @@ int	render(t_cub *cub)
 	}
 	mlx_put_image_to_window(cub->win.mlx_ptr, cub->win.win_ptr,
 		cub->win.img.mlx_img, 0, 0);
-	printf("PUT IMG\n");
 	return (0);
+}
+
+void	left_rot(t_cub *cub)
+{
+	double	olddirx;
+	double	oldplanx;
+
+	olddirx = cub->game.dirx;
+	cub->game.dirx = cub->game.dirx * cos(0.1) - cub->game.diry * sin(0.1);
+	cub->game.diry = olddirx * sin(0.1) + cub->game.diry * cos(0.1);
+	oldplanx = cub->game.planx;
+	cub->game.planx = cub->game.planx * cos(0.1) - cub->game.plany * sin(0.1);
+	cub->game.plany = oldplanx * sin(0.1) + cub->game.plany * cos(0.1);
+}
+
+void	right_rot(t_cub *cub)
+{
+	double	olddirx;
+	double	oldplanx;
+
+	olddirx = cub->game.dirx;
+	cub->game.dirx = cub->game.dirx * cos(-0.1) - cub->game.diry * sin(-0.1);
+	cub->game.diry = olddirx * sin(-0.1) + cub->game.diry * cos(-0.1);
+	oldplanx = cub->game.planx;
+	cub->game.planx = cub->game.planx * cos(-0.1) - cub->game.plany * sin(-0.1);
+	cub->game.plany = oldplanx * sin(-0.1) + cub->game.plany * cos(-0.1);
 }
 
 int	keypress(int keycode, t_cub *cub)
 {
-	double rotSpeed	= 0.1;
-
 	if (keycode == ESCAPE)
 	{
 		mlx_destroy_window(cub->win.mlx_ptr, cub->win.win_ptr);
 		exit(0);
 	}
 	else if (keycode == W)
-	{
-		printf("W\n");
-		if (cub->map.arr[(int)cub->game.posy][(int)(cub->game.posx + cub->game.dirx * 0.2)] != '1')
-			cub->game.posx += cub->game.dirx * 0.1;
-		if (cub->map.arr[(int)(cub->game.posy + cub->game.diry * 0.2)][(int)cub->game.posx] != '1')
-			cub->game.posy += cub->game.diry * 0.1;
-		printf("posx = %f   ||   posy = %f", cub->game.posx, cub->game.posy);
-	}
+		forward_mvt(cub);
 	else if (keycode == S)
-	{
-		printf("S\n");
-		if (cub->map.arr[(int)cub->game.posy][(int)(cub->game.posx - cub->game.dirx * 0.2)] != '1')
-			cub->game.posx -= cub->game.dirx * 0.1;
-		if (cub->map.arr[(int)(cub->game.posy - cub->game.diry * 0.2)][(int)cub->game.posx] != '1')
-			cub->game.posy -= cub->game.diry * 0.1;
-	}
+		backward_mvt(cub);
 	else if (keycode == A)
-	{
-		if (cub->map.arr[(int)(cub->game.posy)][(int)(cub->game.posx + cub->game.diry * 0.2)] != '1')
-			cub->game.posx += cub->game.diry * 0.1;
-		if (cub->map.arr[(int)(cub->game.posy - cub->game.dirx * 0.2)][(int)(cub->game.posx)] != '1')
-			cub->game.posy -= cub->game.dirx * 0.1;
-		printf("A\n");
-	}
+		leftside_mvt(cub);
 	else if (keycode == D)
-	{
-		if (cub->map.arr[(int)(cub->game.posy)][(int)(cub->game.posx - cub->game.diry * 0.2)] != '1')
-			cub->game.posx -= cub->game.diry * 0.1;
-		if (cub->map.arr[(int)(cub->game.posy + cub->game.dirx * 0.2)][(int)(cub->game.posx)] != '1')
-			cub->game.posy += cub->game.dirx * 0.1;
-		printf("D\n");
-	}
+		rightside_mvt(cub);
 	else if (keycode == LEFT)
-	{
-		double olddirx = cub->game.dirx;
-		cub->game.dirx = cub->game.dirx * cos(rotSpeed) - cub->game.diry * sin(rotSpeed);
-		cub->game.diry = olddirx * sin(rotSpeed) + cub->game.diry * cos(rotSpeed);
-		double oldplanx = cub->game.planx;
-		cub->game.planx = cub->game.planx * cos(rotSpeed) - cub->game.plany * sin(rotSpeed);
-		cub->game.plany = oldplanx * sin(rotSpeed) + cub->game.plany * cos(rotSpeed);
-		printf("LEFT\n");
-	}
+		left_rot(cub);
 	else if (keycode == RIGHT)
-	{
-		double olddirx = cub->game.dirx;
-		cub->game.dirx = cub->game.dirx * cos(-rotSpeed) - cub->game.diry * sin(-rotSpeed);
-		cub->game.diry = olddirx * sin(-rotSpeed) + cub->game.diry * cos(-rotSpeed);
-		double oldplanx = cub->game.planx;
-		cub->game.planx = cub->game.planx * cos(-rotSpeed) - cub->game.plany * sin(-rotSpeed);
-		cub->game.plany = oldplanx * sin(-rotSpeed) + cub->game.plany * cos(-rotSpeed);
-		printf("LEFT\n");
-		printf("RIGHT\n");
-	}
+		right_rot(cub);
 	render(cub);
 	return (0);
 }
@@ -125,6 +107,7 @@ int	main(int argc, char **argv)
 	cub.win.mlx_ptr = mlx_init();
 	cub.win.win_ptr = mlx_new_window(cub.win.mlx_ptr, cub.win.width,
 			cub.win.height, "CUB3D");
+	//mlx_do_key_autorepeaton(cub.win.mlx_ptr);
 	render(&cub);
 	mlx_key_hook(cub.win.win_ptr, &keypress, &cub);
 	mlx_hook(cub.win.win_ptr, 17, 0, close_window, NULL);
