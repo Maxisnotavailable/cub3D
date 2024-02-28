@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/27 11:27:45 by molla            ###   ########.fr       */
+/*   Updated: 2024/02/28 19:27:11 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_img
 	int		bpp; /* bits per pixel */
 	int		line_len;
 	int		endian;
+	int		x;
+	int		y;
 }	t_img;
 
 typedef struct s_win
@@ -106,6 +108,16 @@ typedef struct s_game
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
+	t_img	wall_no;
+	t_img	wall_so;
+	t_img	wall_we;
+	t_img	wall_ea;
+	int		*size;
+	double	wallx;
+	int		texx;
+	int		texy;
+	double	step;
+	double	texpos;
 }	t_game;
 
 typedef struct s_cub
@@ -118,57 +130,75 @@ typedef struct s_cub
 
 //+++++  check_orientations.c  +++++//
 
-int		check_no_description(t_cub *cub, char *map_line, int i, int j);
-int		check_so_description(t_cub *cub, char *map_line, int i, int j);
-int		check_we_description(t_cub *cub, char *map_line, int i, int j);
-int		check_ea_description(t_cub *cub, char *map_line, int i, int j);
+int				check_no_description(t_cub *cub, char *map_line, int i, int j);
+int				check_so_description(t_cub *cub, char *map_line, int i, int j);
+int				check_we_description(t_cub *cub, char *map_line, int i, int j);
+int				check_ea_description(t_cub *cub, char *map_line, int i, int j);
 
 //+++++++  check_colors.c  +++++++++//
 
-int		check_f_description(t_cub *cub, char *map_line, int i);
-int		check_c_description(t_cub *cub, char *map_line, int i);
+int				check_f_description(t_cub *cub, char *map_line, int i);
+int				check_c_description(t_cub *cub, char *map_line, int i);
 
 //+++++++++  check_elems.c  ++++++++//
 
-int		check_elems(char **argv, t_cub *cub);
+int				check_elems(char **argv, t_cub *cub);
 
 //+++++++  check_map_utils.c  ++++++//
 
-int		check_close(char **arr, t_line *line, int x, int y);
-int		create_map_arr(t_cub *cub, int fd, char *argv);//, int i);
+int				check_close(char **arr, t_line *line, int x, int y);
+int				create_map_arr(t_cub *cub, int fd, char *argv);
 
 //++++++++++  check_map.c  +++++++++//
 
-int		check_map(t_cub *cub, int fd, char *argv);
+int				check_map(t_cub *cub, int fd, char *argv);
 
 //+++++++++++  parsing.c  ++++++++++//
 
-int		parsing(int argc, char **argv, t_cub *cub);
+int				parsing(int argc, char **argv, t_cub *cub);
 
 //++++++++++++  init.c  ++++++++++++//
 
-void	init_game(t_cub *cub);
-void	init_player_orientation(t_cub *cub);
-void	calculs_init(t_cub *cub, int x);
+void			init_game(t_cub *cub);
+void			init_player_orientation(t_cub *cub);
+void			calculs_init(t_cub *cub, int x);
+
+//+++++++++++  render.c  +++++++++++//
+
+int				render(t_cub *cub);
+int				close_window(int keycode, void *param);
+int				keypress(int keycode, t_cub *cub);
 
 //+++++++++++  calculs.c  ++++++++++//
 
-void	calculate_deltas(t_cub *cub);
-void	calculate_step_and_sidedist(t_cub *cub);
-void	dda_algo(t_cub *cub);
+void			calculate_deltas(t_cub *cub);
+void			calculate_step_and_sidedist(t_cub *cub);
+void			dda_algo(t_cub *cub);
 
 //+++++++++++  drawing.c  ++++++++++//
 
-int		convert_to_color(int color[3]);
-void	establishement_draw(t_cub *cub);
-void	my_pixel_put(t_cub *cub, int x, int y, int color);
-void	draw_verline(t_cub *cub, int x, int color);
+int				convert_to_color(int color[3]);
+void			establishement_draw(t_cub *cub);
+unsigned int	get_pixel_color(t_img img, int x, int y);
+void			my_pixel_put(t_cub *cub, int x, int y, int color);
+void			draw_verline(t_cub *cub, int x);//, int color);
 
 //++++++++++  movements.c  +++++++++//
 
-void	forward_mvt(t_cub *cub);
-void	backward_mvt(t_cub *cub);
-void	leftside_mvt(t_cub *cub);
-void	rightside_mvt(t_cub *cub);
+void			forward_mvt(t_cub *cub);
+void			backward_mvt(t_cub *cub);
+void			leftside_mvt(t_cub *cub);
+void			rightside_mvt(t_cub *cub);
+
+//++++++++++  rotations.c  +++++++++//
+
+void			left_rot(t_cub *cub);
+void			right_rot(t_cub *cub);
+
+//++++++++++  textures.c  ++++++++++//
+
+int				init_texture(t_cub *cub);
+void			establishment_textures(t_cub *cub);
+t_img			find_texture(t_cub *cub);
 
 #endif

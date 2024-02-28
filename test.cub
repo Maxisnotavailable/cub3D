@@ -1,7 +1,7 @@
-NO ./Images/Bricks.png
-SO ./Images/Bricks.png
-EA ./Images/Bricks.png
-WE ./Images/Bricks.png
+NO ./Images/bookshelf.xpm
+SO ./Images/Bricks.xpm
+EA ./Images/WaterF1.xpm
+WE ./Images/Gold1.xpm
 C 126  ,156 ,23
 F 50   ,45,0
 

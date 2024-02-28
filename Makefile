@@ -6,7 +6,7 @@
 #    By: molla <molla@student.42nice.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 08:46:35 by molla             #+#    #+#              #
-#    Updated: 2024/02/27 10:22:37 by molla            ###   ########.fr        #
+#    Updated: 2024/02/28 19:27:44 by molla            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ MLX		= minilibx-linux/
 SRCS	= cub3d.c ./Parsing/parsing.c ./Parsing/check_elems.c\
 		./Parsing/check_orientations.c ./Parsing/check_colors.c\
 		./Parsing/check_map_utils.c ./Parsing/check_map.c Raycaster/init.c \
-		Raycaster/calculs.c Raycaster/drawing.c Raycaster/movements.c
+		Raycaster/calculs.c Raycaster/drawing.c Raycaster/movements.c \
+		Raycaster/rotations.c Raycaster/textures.c Raycaster/render.c
 OBJS	= ${SRCS:.c=.o}
 NAME	= cub3D
 
