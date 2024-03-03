@@ -6,7 +6,7 @@
 #    By: molla <molla@student.42nice.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 08:46:35 by molla             #+#    #+#              #
-#    Updated: 2024/02/28 19:27:44 by molla            ###   ########.fr        #
+#    Updated: 2024/03/01 10:12:29 by molla            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS	+= -fsanitize=address -g3
 endif
 LIBFT	= Libft/
 MLX		= minilibx-linux/
-SRCS	= cub3d.c ./Parsing/parsing.c ./Parsing/check_elems.c\
+SRCS	= main.c ./Parsing/parsing.c ./Parsing/check_elems.c\
 		./Parsing/check_orientations.c ./Parsing/check_colors.c\
 		./Parsing/check_map_utils.c ./Parsing/check_map.c Raycaster/init.c \
 		Raycaster/calculs.c Raycaster/drawing.c Raycaster/movements.c \
@@ -44,7 +44,6 @@ clean	:
 fclean	: clean
 		rm -f ${NAME}
 		${MAKE} fclean -C ${LIBFT}
-		${MAKE} fclean -C ${MLX}
 
 debug	:
 		${MAKE} DEBUG=1

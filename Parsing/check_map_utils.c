@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:43:38 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 17:09:27 by molla            ###   ########.fr       */
+/*   Updated: 2024/03/03 15:04:27 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ int	count_map_line(t_cub *cub, int fd)
 	return (0);
 }
 
+static int	check_map_line(char *map_line)
+{
+	if (map_line[0] == '\n')
+	{
+		free(map_line);
+		return (1);
+	}
+	return (0);
+}
+
 int	create(t_cub *cub, char **map_line, int fd)
 {
 	static int	i = 0;
@@ -58,8 +68,12 @@ int	create(t_cub *cub, char **map_line, int fd)
 	}
 	else
 	{
-		if (*map_line[0] == '\n')
+		if (check_map_line(*map_line) == 1)
+		{
+			while (j < cub->map.nb_line)
+				cub->map.arr[j++] = NULL;
 			return (write(2, "Error\nMap is cut\n", 17), 1);
+		}
 		cub->map.arr[j++] = ft_strtrim(*map_line, "\n");
 		*map_line = get_next_line(fd);
 	}

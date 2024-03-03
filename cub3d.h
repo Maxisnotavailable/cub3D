@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:57:06 by molla             #+#    #+#             */
-/*   Updated: 2024/02/28 19:27:11 by molla            ###   ########.fr       */
+/*   Updated: 2024/03/01 10:27:37 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void			calculs_init(t_cub *cub, int x);
 
 //+++++++++++  render.c  +++++++++++//
 
+void			exit_cub(t_cub *cub);
 int				render(t_cub *cub);
 int				close_window(int keycode, void *param);
 int				keypress(int keycode, t_cub *cub);

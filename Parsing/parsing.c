@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:35:16 by molla             #+#    #+#             */
-/*   Updated: 2024/02/15 10:45:49 by molla            ###   ########.fr       */
+/*   Updated: 2024/03/03 15:08:01 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,18 @@ void	init_elems(t_cub *cub)
 	cub->map.map = 1;
 	cub->map.nb_line = 0;
 	cub->map.player = '0';
+	cub->map.arr = NULL;
+	cub->elem.path_no = NULL;
+	cub->elem.path_so = NULL;
+	cub->elem.path_ea = NULL;
+	cub->elem.path_we = NULL;
 }
 
 int	parsing(int argc, char **argv, t_cub *cub)
 {
+	init_elems(cub);
 	if (check_arg(argc, argv) == 1)
 		return (1);
-	init_elems(cub);
 	if (check_elems(argv, cub) == 1)
 		return (1);
 	return (0);

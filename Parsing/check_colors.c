@@ -6,7 +6,7 @@
 /*   By: molla <molla@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:54:04 by molla             #+#    #+#             */
-/*   Updated: 2024/02/14 08:47:29 by molla            ###   ########.fr       */
+/*   Updated: 2024/03/01 09:20:32 by molla            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	check_f_color(t_cub *cub, char *map_line, int i, int x)
 	color[k] = '\0';
 	cub->elem.rgb_f[x] = atoi(color);
 	if (cub->elem.rgb_f[x] > 255)
-		return (write(2, "Error\nError in F description\n", 29), 1);
+		return (write(2, "Error\nError in F description\n", 29),
+			free(color), 1);
 	free(color);
 	return (i);
 }
@@ -63,7 +64,8 @@ int	check_c_color(t_cub *cub, char *map_line, int i, int x)
 	color[k] = '\0';
 	cub->elem.rgb_c[x] = atoi(color);
 	if (cub->elem.rgb_c[x] > 255)
-		return (write(2, "Error\nError in C description\n", 29), 1);
+		return (write(2, "Error\nError in C description\n", 29),
+			free(color), 1);
 	free(color);
 	return (i);
 }
